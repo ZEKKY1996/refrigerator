@@ -1,24 +1,6 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
-
-function dbConnect(){
-
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-    $dotenv->load();
-
-    $dbHost = $_ENV['DB_HOST'];
-    $dbUsername = $_ENV['DB_USERNAME'];
-    $dbPass = $_ENV['DB_PASS'];
-    $dbDatabase = $_ENV['DB_DATABASE'];
-
-    $link = mysqli_connect($dbHost,$dbUsername,$dbPass,$dbDatabase);
-    if(!$link){
-        echo 'Erroe: データベースに接続できません'.PHP_EOL;
-        echo 'Debugging error:'.mysqli_connect_error(),PHP_EOL;
-    }
-    return $link;
-}
+require_once  __DIR__.'/lib/mysqli.php';
 
 function dropTable($link){
     $dropTableSql = 'DROP TABLE IF EXISTS refrigerators;';
@@ -36,7 +18,7 @@ function createTable($link){
         CREATE TABLE refrigerators (
             id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
             name VARCHAR(50) NOT NULL,
-            volume INTEGER NOT NULL,
+            volume FLOAT NOT NULL,
             unit VARCHAR(10),
             parchase_date DATE,
             limit_date DATE
