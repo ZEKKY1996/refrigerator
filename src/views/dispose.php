@@ -13,13 +13,17 @@
             <th class="border text-center">期限日</th>
         </tr>
         <?php foreach ($items as $item) :?>
+            <?php if(strtotime($item['limit_date'])<strtotime(date("Y-m-d"))+5*60*60*24):?>
+            <tr class="text-danger">
+            <?php else :?>
             <tr>
+            <?php endif;?>
                 <td class="border text-center pl-2 pr-2">
                     <form action="delete.php" method="POST">
                     <input type="checkbox" name="chk[]" value="<?php echo $item['id'];?>">
 
                 </td>
-                <td class="border text-center pl-2 pr-2">
+                <td class="border text-center pl-2 pr-2 col-3">
                 <?php echo escape($item['name']);?>
                 </td>
                 <td class="border text-right pl-2 pr-2">
