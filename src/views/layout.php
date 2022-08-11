@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="stylesheets/css/app.css">
         <title><?php echo $title;?></title>
-        <header>冷蔵庫管理アプリ</header>
+        <header><a href="index.php">冷蔵庫管理アプリ</a></header>
     </head>
     <body>
         <div class="container">

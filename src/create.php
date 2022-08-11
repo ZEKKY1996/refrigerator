@@ -29,9 +29,9 @@ function validate($item){
     $errors = [];
 
     if(!strlen($item['name'])){
-        $errors['name'] = '商品名を入力してください。'.PHP_EOL;
+        $errors['name'] = '品物名を入力してください。'.PHP_EOL;
     }elseif(strlen($item['name'])>50){
-        $errors['name'] = '商品名は50文字以内で入力してください。'.PHP_EOL;
+        $errors['name'] = '品物名は50文字以内で入力してください。'.PHP_EOL;
     }
 
     if(!strlen($item['volume'])){

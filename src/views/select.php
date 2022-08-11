@@ -1,8 +1,9 @@
 
-<h1 class="h2 text-dark mt-4 mb-4">すてるものを選択</h1>
+<h1 class="h2 text-dark mt-4 mb-4">つかうものを選択</h1>
 <?php if(isset($error)) :?>
     <p class="text-danger"><?php echo $error;?></p>
 <?php endif;?>
+<form action="consumption.php" method="POST">
 <table>
     <?php if(count($items)>0) :?>
         <tr>
@@ -15,9 +16,7 @@
         <?php foreach ($items as $item) :?>
             <tr>
                 <td class="border text-center pl-2 pr-2">
-                    <form action="delete.php" method="POST">
                     <input type="checkbox" name="chk[]" value="<?php echo $item['id'];?>">
-
                 </td>
                 <td class="border text-center pl-2 pr-2">
                 <?php echo escape($item['name']);?>
@@ -37,7 +36,7 @@
         <h4>冷蔵庫がからっぽです</h4>
     <?php endif;?>
 </table>
-<button type="submit" class="btn btn-primary mt-4">すてる</button>
+<button type="submit" class="btn btn-primary mt-4">えらぶ</button>
 </form>
 <br>
 <a href="index.php" class="btn btn-primary mt-4">一覧にもどる</a>

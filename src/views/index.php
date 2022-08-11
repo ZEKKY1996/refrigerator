@@ -1,7 +1,7 @@
 
 <h1>冷蔵庫内容一覧</h1>
 <a href="new.php" class="btn btn-primary mb-4">いれる</a>
-<a href="" class="btn btn-primary mb-4">つかう</a>
+<a href="select.php" class="btn btn-primary mb-4">つかう</a>
 <a href="dispose.php" class="btn btn-primary mb-4">すてる</a>
 <a href="" class="btn btn-primary mb-4">さがす</a>
 
@@ -15,7 +15,7 @@
         </tr>
         <?php foreach ($items as $item) :?>
             <tr>
-                <td class="border text-center pl-2 pr-2">
+                <td class="border text-center pl-2 pr-2 col-4">
                 <?php echo escape($item['name']);?>
                 </td>
                 <td class="border text-right pl-2 pr-2">
@@ -30,6 +30,6 @@
             </tr>
         <?php endforeach;?>
     <?php else:?>
-        <h4>冷蔵庫が空っぽです</h4>
+        <h4>冷蔵庫がからっぽです</h4>
     <?php endif;?>
 </table>

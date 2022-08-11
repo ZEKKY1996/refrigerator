@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
     }
 }
-$title = '廃棄するものを選択';
-$error = '廃棄する品物を選択してください。';
+$title = 'すてるものを選択';
+$error = 'すてるものを選択してください。';
 $content = __DIR__.'/views/dispose.php';
 include __DIR__.'/views/layout.php';
