@@ -3,15 +3,11 @@ function listItems($link):array{
     $items = [];
     $sql = <<<EOT
         SELECT
-            id,
-            name,
-            volume,
-            unit,
-            parchase_date,
-            limit_date
+            *
         FROM
             refrigerators
         ORDER BY
+            freezing ASC,
             limit_date ASC
     EOT;
     $results = mysqli_query($link,$sql);

@@ -9,13 +9,15 @@ function createItem($link,$item){
             volume,
             unit,
             parchase_date,
-            limit_date
+            limit_date,
+            freezing
         ) VALUES (
             "{$item['name']}",
             "{$item['volume']}",
             "{$item['unit']}",
             "{$item['parchase_date']}",
-            "{$item['limit_date']}"
+            "{$item['limit_date']}",
+            "{$item['freezing']}"
         )
     EOT;
     $result = mysqli_query($link ,$sql);
@@ -71,7 +73,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         'volume' => floor((float)$_POST['volume']*10)/10,
         'unit' => $_POST['unit'],
         'parchase_date' => $_POST['parchase_date'],
-        'limit_date' => $_POST['limit_date']
+        'limit_date' => $_POST['limit_date'],
+        'freezing' => $_POST['freezing']
     ];
 
     $errors = validate($item);

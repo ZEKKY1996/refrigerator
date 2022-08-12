@@ -1,6 +1,8 @@
 <?php
 
 require_once  __DIR__.'/lib/mysqli.php';
+require_once  __DIR__.'/lib/escape.php';
+require_once  __DIR__.'/lib/itemList.php';
 
 function updateItem($link,$updateItemIds,$updateItemVolumes){
     for($i=0;$i<=count($updateItemIds);$i++){
@@ -17,7 +19,7 @@ function updateItem($link,$updateItemIds,$updateItemVolumes){
     }
     $sql = <<<EOT
             DELETE FROM refrigerators
-            WHERE volume = 0
+            WHERE volume <= 0
         EOT;
         $result = mysqli_query($link ,$sql);
         if(!$result){
@@ -31,16 +33,19 @@ function validate($updateItemVolumes){
 foreach($updateItemVolumes as $updateItemVolume){
     if(!strlen($updateItemVolume)){
         $errors[] = '数量を入力してください。'.PHP_EOL;
-    }elseif(!is_float($updateItemVolume) | $updateItemVolume==0){
+    }elseif($updateItemVolume < 0){
         $errors[] = '数量は小数第1位までの数値で入力してください。'.PHP_EOL;
     }
 }
+    return $errors;
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $updateItemIds = $_POST['id'];
-        $updateItemVolumes = $_POST['volume'];
-
+        $updateItemVolumes = [];
+        foreach($_POST['volume'] as $itemVolume){
+            $updateItemVolumes[] = floor($itemVolume * 10)/10;
+        }
     $errors = validate($updateItemVolumes);
     if(!count($errors)){
         $link = dbConnect();
@@ -50,5 +55,5 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 }
 
-$content = __DIR__.'/views/consumption.php';
+$content = __DIR__.'/views/selectUse.php';
 include __DIR__.'/views/layout.php';

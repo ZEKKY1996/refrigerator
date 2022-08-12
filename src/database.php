@@ -21,7 +21,8 @@ function createTable($link){
             volume FLOAT NOT NULL,
             unit VARCHAR(10),
             parchase_date DATE,
-            limit_date DATE
+            limit_date DATE,
+            freezing VARCHAR(10)
         ) DEFAULT CHARACTER SET=utf8mb4;
     EOT;
     $result = mysqli_query($link,$createTableSql);

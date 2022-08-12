@@ -35,5 +35,5 @@
 <button type="submit" class="btn btn-primary mt-4">つかう</button>
 </form>
 <br>
-<a href="select.php" class="btn btn-primary mt-4">えらぶ画面にもどる</a>
+<a href="selectUse.php" class="btn btn-primary mt-4">えらぶ画面にもどる</a>
 <a href="index.php" class="btn btn-primary mt-4">一覧にもどる</a>
