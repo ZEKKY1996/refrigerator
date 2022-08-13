@@ -1,13 +1,15 @@
 <?php
-
+require_once  __DIR__.'/lib/checkSession.php';
 require_once  __DIR__.'/lib/mysqli.php';
 require_once  __DIR__.'/lib/escape.php';
 require_once  __DIR__.'/lib/itemList.php';
 
-function deleteItem($link,$deleteItems){
+$id = $_SESSION['id'];
+
+function deleteItem($link,$id,$deleteItems){
     foreach($deleteItems as $deleteItem){
         $sql = <<<EOT
-            DELETE FROM refrigerators
+            DELETE FROM $id
             WHERE id = $deleteItem
         EOT;
         $result = mysqli_query($link ,$sql);
@@ -24,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         if(count($deleteItems)){
             $link = dbConnect();
-            deleteItem($link,$deleteItems);
+            deleteItem($link,$id,$deleteItems);
             mysqli_close($link);
             header("Location: index.php");
         }

@@ -1,13 +1,15 @@
 <?php
-
+require_once  __DIR__.'/lib/checkSession.php';
 require_once  __DIR__.'/lib/mysqli.php';
 require_once  __DIR__.'/lib/escape.php';
 require_once  __DIR__.'/lib/itemList.php';
 
-function freezingItem($link,$freezingItemIds){
+$id = $_SESSION['id'];
+
+function freezingItem($link,$id,$freezingItemIds){
     foreach($freezingItemIds as $freezingItemId){
         $sql = <<<EOT
-            UPDATE refrigerators
+            UPDATE $id
             SET freezing =
                 CASE
                     WHEN freezing = 'on' THEN 'off'
@@ -30,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         if(count($freezingItemIds)){
             $link = dbConnect();
-            freezingItem($link,$freezingItemIds);
+            freezingItem($link,$id,$freezingItemIds);
             mysqli_close($link);
             header("Location: index.php");
         }

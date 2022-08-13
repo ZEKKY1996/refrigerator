@@ -1,13 +1,15 @@
 <?php
-
+require_once  __DIR__.'/lib/checkSession.php';
 require_once  __DIR__.'/lib/mysqli.php';
 require_once  __DIR__.'/lib/escape.php';
 require_once  __DIR__.'/lib/itemList.php';
 
-function updateItem($link,$updateItemIds,$updateItemVolumes){
+$id = $_SESSION['id'];
+
+function updateItem($link,$id,$updateItemIds,$updateItemVolumes){
     for($i=0;$i<=count($updateItemIds);$i++){
         $sql = <<<EOT
-            UPDATE refrigerators
+            UPDATE $id
             SET volume = volume - $updateItemVolumes[$i]
             WHERE id = $updateItemIds[$i]
         EOT;
@@ -18,7 +20,7 @@ function updateItem($link,$updateItemIds,$updateItemVolumes){
         }
     }
     $sql = <<<EOT
-            DELETE FROM refrigerators
+            DELETE FROM $id
             WHERE volume <= 0
         EOT;
         $result = mysqli_query($link ,$sql);
@@ -49,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $errors = validate($updateItemVolumes);
     if(!count($errors)){
         $link = dbConnect();
-        updateItem($link,$updateItemIds,$updateItemVolumes);
+        updateItem($link,$id,$updateItemIds,$updateItemVolumes);
         mysqli_close($link);
         header("Location: index.php");
     }

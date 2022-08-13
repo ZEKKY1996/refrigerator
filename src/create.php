@@ -1,10 +1,12 @@
 <?php
-
+require_once  __DIR__.'/lib/checkSession.php';
 require_once  __DIR__.'/lib/mysqli.php';
 
-function createItem($link,$item){
+$id = $_SESSION['id'];
+
+function createItem($link,$id,$item){
     $sql = <<<EOT
-        INSERT INTO refrigerators (
+        INSERT INTO $id (
             name,
             volume,
             unit,
@@ -80,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $errors = validate($item);
     if(!count($errors)){
         $link = dbConnect();
-        createItem($link,$item);
+        createItem($link,$id,$item);
         mysqli_close($link);
         header("Location: index.php");
     }

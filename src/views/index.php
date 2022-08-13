@@ -1,4 +1,4 @@
-
+<p class="line-height:1"><?php echo $_SESSION['id'];?> さん、こんにちは！今日は<?php echo date("Y年m月d日");?>です。</p>
 <h1>冷蔵庫内容一覧</h1>
 <a href="new.php" class="btn btn-primary mb-4">いれる</a>
 <a href="selectUse.php" class="btn btn-primary mb-4">つかう</a>
@@ -21,16 +21,16 @@
             <?php else :?>
                 <tr>
             <?php endif;?>
-                <td class="border text-center pl-2 pr-2 col-3">
+                <td class="border text-center pl-1 pr-1 col-4">
                 <?php echo escape($item['name']);?>
                 </td>
-                <td class="border text-right pl-2 pr-2">
+                <td class="border text-right pl-1 pr-1">
                 <?php echo escape($item['volume']).escape($item['unit']);?>
                 </td>
-                <td class="border text-center pl-2 pr-2">
+                <td class="border text-center pl-1 pr-1">
                 <?php echo escape($item['parchase_date']);?>
                 </td>
-                <td class="border text-center pl-2 pr-2">
+                <td class="border text-center pl-1 pr-1">
                 <?php echo escape($item['limit_date']);?>
                 </td>
         </tr>
@@ -43,3 +43,4 @@
     <p class="text-danger pr-4">赤：期限間近</p>
     <p class="text-primary">青：冷凍</p>
 </div>
+<a href="selectLogout.php" class="btn btn-primary mb-4">ログアウト</a>

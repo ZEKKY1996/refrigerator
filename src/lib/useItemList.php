@@ -1,5 +1,8 @@
 <?php
-function useItem($link,$useItemIds){
+
+$id = $_SESSION['id'];
+
+function useItem($link,$id,$useItemIds){
     foreach($useItemIds as $useItemId){
         $sql = <<<EOT
             SELECT
@@ -10,7 +13,7 @@ function useItem($link,$useItemIds){
                 parchase_date,
                 limit_date
             FROM
-                refrigerators
+                $id
             WHERE
                 id = $useItemId
             ORDER BY
@@ -32,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(isset($_POST['chk'])){
         $useItemIds = $_POST['chk'];
         $link = dbConnect();
-        $useItems = useItem($link,$useItemIds);
+        $useItems = useItem($link,$id,$useItemIds);
         $title = '使うものの数量を選択';
 
     }

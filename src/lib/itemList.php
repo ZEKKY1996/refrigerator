@@ -1,11 +1,11 @@
 <?php
-function listItems($link):array{
+function listItems($link,$id){
     $items = [];
     $sql = <<<EOT
         SELECT
             *
         FROM
-            refrigerators
+            $id
         ORDER BY
             freezing ASC,
             limit_date ASC
@@ -19,6 +19,6 @@ function listItems($link):array{
 
     return $items;
 }
-
+$id = $_SESSION['id'];
 $link = dbConnect();
-$items = listItems($link);
+$items = listItems($link,$id);
