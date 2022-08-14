@@ -9,13 +9,13 @@ function registerUser($link,$id,$mail,$pass){
             mail,
             password,
             status,
-            startTime
+            sessionTime
         ) VALUES (
             "$id",
             "$mail",
             "$pass",
             "logout",
-            "0000-00-00 00:00:00"
+            0
         )
     EOT;
     $result = mysqli_query($link ,$sql);

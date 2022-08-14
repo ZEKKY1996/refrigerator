@@ -9,9 +9,9 @@
         <?php
         echo 'メールアドレス:  '.$mail;?><br>
         <?php
-        echo 'パスワード:  '.$pass.PHP_EOL;
+        echo 'パスワード:****'.PHP_EOL;
         ?><br><br>
             <div>
-               <button type="submit">登録</button>
+               <button type="submit" class="btn btn-primary">登録</button>
             </div>
         </form><br>

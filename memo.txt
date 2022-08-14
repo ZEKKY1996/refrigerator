@@ -4,5 +4,5 @@ CREATE TABLE users (
             mail VARCHAR(255) NOT NULL,
             password VARCHAR(255) NOT NULL,
             status VARCHAR(10) NOT NULL,
-            startTime TIMESTAMP
+            startTime INTEGER
         ) DEFAULT CHARACTER SET=utf8mb4;

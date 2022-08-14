@@ -2,11 +2,11 @@
 require_once  __DIR__.'/lib/checkSession.php';
 require_once  __DIR__.'/lib/mysqli.php';
 
-function logout($link,$id,$startTime){
+function logout($link,$id){
     $sql = <<<EOT
     UPDATE users
     SET status = "logout",
-        startTime = "$startTime"
+        sessionTime = 0
     WHERE id = "$id"
     EOT;
     $result = mysqli_query($link ,$sql);
@@ -17,9 +17,8 @@ function logout($link,$id,$startTime){
 }
 
 $id = $_SESSION['id'];
-$startTime = "0000-00-00 00:00:00";
 $link = dbConnect();
-logout($link,$id,$startTime);
+logout($link,$id);
 
 unset($_SESSION['id']);
 session_destroy();

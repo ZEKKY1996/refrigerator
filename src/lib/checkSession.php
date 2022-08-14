@@ -1,5 +1,52 @@
 <?php
 session_start();
-if (!count($_SESSION)) {
-    header("Location: login.php");
+require_once  __DIR__.'/mysqli.php';
+
+function lostSessionLogout($link,$time){
+    $sql = <<<EOT
+    UPDATE users
+    SET status = "logout",
+        sessionTime = 0
+    WHERE status = "login"
+    AND sessionTime < $time - 100
+    EOT;
+    $result = mysqli_query($link ,$sql);
+    if(!$result){
+        error_log('Error: fail to get user pass').PHP_EOL;
+        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+    }
 }
+function timeout($link,$id){
+    $sql = <<<EOT
+    UPDATE users
+    SET status = "logout",
+        sessionTime = 0
+    WHERE id = "$id"
+    EOT;
+    $result = mysqli_query($link ,$sql);
+    if(!$result){
+        error_log('Error: fail to get user pass').PHP_EOL;
+        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+    }
+}
+
+$link = dbConnect();
+$time = time();
+var_dump($time);
+var_dump($_SESSION);
+if (!count($_SESSION)) {
+    lostSessionLogout($link,$time);
+    mysqli_close($link);
+    session_destroy();
+    header("Location: login.php");
+}else{
+    $id = $_SESSION['id'];
+    if($time - $_SESSION['sessionTime'] > 100){
+        timeout($link,$id);
+        mysqli_close($link);
+        unset($_SESSION['id']);
+        session_destroy();
+        header ("Location:login.php");
+    }
+}
+$_SESSION['sessionTime'] = time();

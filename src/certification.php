@@ -15,7 +15,26 @@ function checkUserId($link,$id){
         echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
     }
     if(mysqli_num_rows($result) !== 1){
-        $errors = '入力されたユーザーIDの登録情報が見つかりません。';
+        $errors['checkUserId'] = '入力されたユーザーIDの登録情報が見つかりません。';
+    }
+    return $errors;
+}
+
+function checkUserStatus($link,$id){
+    $errors = [];
+    $sql = <<<EOT
+    SELECT id
+    FROM users
+    WHERE id = "$id"
+    AND status = "login"
+    EOT;
+    $result = mysqli_query($link ,$sql);
+    if(!$result){
+        error_log('Error: fail to check user').PHP_EOL;
+        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+    }
+    if(mysqli_num_rows($result) === 1){
+        $errors['checkUserStatus'] = '入力されたユーザーIDはすでにログイン中です。';
     }
     return $errors;
 }
@@ -36,11 +55,11 @@ function getUserPass($link,$id){
     return $hashPass;
 }
 
-function setStartTime($link,$id,$startTime){
+function setStartTime($link,$id,$sessionTime){
     $sql = <<<EOT
     UPDATE users
     SET status = "login",
-        startTime = "$startTime"
+        sessionTime = "$sessionTime"
     WHERE id = "$id"
     EOT;
     $result = mysqli_query($link ,$sql);
@@ -73,21 +92,21 @@ function validate($id,$pass){
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $_SESSION['start'] = time();
     $_SESSION['id'] = $_POST['id'];
     $pass = $_POST['pass'];
     $id = $_SESSION['id'];
-    $startTime = date('Y-m-d H:i:s',$_SESSION['start']);
     $errors = validate($id,$pass);
 
     if(!count($errors)){
         $link = dbConnect();
         $errors = checkUserId($link,$id);
-
+        $errors = checkUserStatus($link,$id);
         if(!count($errors)){
             $hashPass = getUserPass($link,$id);
             if(password_verify($pass,$hashPass['password'])){
-                setStartTime($link,$id,$startTime);
+                $_SESSION['sessionTime'] = time();
+                $sessionTime = $_SESSION['sessionTime'];
+                setStartTime($link,$id,$sessionTime);
                 mysqli_close($link);
                 header("Location: index.php");
                 exit();

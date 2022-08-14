@@ -24,6 +24,6 @@
             <input type="password" id="pass_conf" name="pass_conf" class="form-control">
         </div>
         <div>
-            <button type="submit">登録する</button>
+            <button type="submit" class="btn btn-primary">登録する</button>
         </div>
     </form><br>
