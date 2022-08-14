@@ -2,14 +2,20 @@
 
 require_once  __DIR__.'/lib/mysqli.php';
 
-function registerUser($link,$id,$pass){
+function registerUser($link,$id,$mail,$pass){
     $sql = <<<EOT
         INSERT INTO users (
             id,
-            password
+            mail,
+            password,
+            status,
+            startTime
         ) VALUES (
             "$id",
-            "$pass"
+            "$mail",
+            "$pass",
+            "logout",
+            "0000-00-00 00:00:00"
         )
     EOT;
     $result = mysqli_query($link ,$sql);
@@ -40,10 +46,11 @@ function createTable($link,$id){
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $id =  $_POST['id'];
-    $pass = $_POST['pass'];
+    $mail =  $_POST['mail'];
+    $pass = password_hash($_POST['pass'],PASSWORD_DEFAULT);
 
         $link = dbConnect();
-        registerUser($link,$id,$pass);
+        registerUser($link,$id,$mail,$pass);
         createTable($link,$id);
         mysqli_close($link);
         header("Location: login.php");

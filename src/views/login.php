@@ -15,9 +15,9 @@
             <label for="pass">パスワード（半角英数字で入力してください）</label>
             <input type="password" id="pass" name="pass"  class="form-control" pattern="^[a-zA-Z0-9]+$">
         </div>
-        <div>
-            <button type="submit">ログイン</button>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">ログイン</button>
         </div>
     </form><br>
-    <p><a href="signUp.php">初めてご利用の方（新規会員登録）</a></p><br>
-    <p><a href="">パスワードをお忘れの方</a></p>
+    <p class="mt-4"><a href="exportUserInfo.php">初めてご利用の方（新規会員登録）</a></p><br>
+    <p><a href="forgetPass.php">パスワードをお忘れの方</a></p>

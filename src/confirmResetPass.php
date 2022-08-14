@@ -12,8 +12,8 @@ function checkUser($link,$id){
         error_log('Error: fail to check user').PHP_EOL;
         echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
     }
-    if(mysqli_num_rows($result) === 1){
-        $error = '入力したユーザーIDは使用されています。';
+    if(mysqli_num_rows($result) !== 1){
+        $error = '入力したユーザーIDが見つかりません';
         return $error;
     };
 }
@@ -57,10 +57,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $errors = validate($id,$pass,$mail,$passConf);
     if(!count($errors)){
         $link = dbConnect();
-        $errors['overlap'] = checkUser($link,$id);
+        $errors['unset'] = checkUser($link,$id);
         mysqli_close($link);
-        if(!$errors['overlap']){
-            $content = __DIR__.'/views/confirm.php';
+        if(!$errors['unset']){
+            $content = __DIR__.'/views/confirmResetPass.php';
             include __DIR__.'/views/layout.php';
         }else{
             $content = __DIR__.'/views/exportUserInfo.php';

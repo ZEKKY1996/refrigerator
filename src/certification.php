@@ -2,13 +2,12 @@
 session_start();
 require_once  __DIR__.'/lib/mysqli.php';
 
-function checkUser($link,$id,$pass){
+function checkUserId($link,$id){
     $errors = [];
     $sql = <<<EOT
     SELECT id
     FROM users
     WHERE id = "$id"
-    AND password = "$pass"
     EOT;
     $result = mysqli_query($link ,$sql);
     if(!$result){
@@ -16,9 +15,39 @@ function checkUser($link,$id,$pass){
         echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
     }
     if(mysqli_num_rows($result) !== 1){
-        $errors = 'ユーザーIDかパスワードに誤りがあります。';
+        $errors = '入力されたユーザーIDの登録情報が見つかりません。';
     }
     return $errors;
+}
+
+function getUserPass($link,$id){
+    $errors = [];
+    $sql = <<<EOT
+    SELECT password
+    FROM users
+    WHERE id = "$id"
+    EOT;
+    $result = mysqli_query($link ,$sql);
+    if(!$result){
+        error_log('Error: fail to get user pass').PHP_EOL;
+        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+    }
+    $hashPass = mysqli_fetch_assoc($result);
+    return $hashPass;
+}
+
+function setStartTime($link,$id,$startTime){
+    $sql = <<<EOT
+    UPDATE users
+    SET status = "login",
+        startTime = "$startTime"
+    WHERE id = "$id"
+    EOT;
+    $result = mysqli_query($link ,$sql);
+    if(!$result){
+        error_log('Error: fail to get user pass').PHP_EOL;
+        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+    }
 }
 
 function validate($id,$pass){
@@ -44,18 +73,29 @@ function validate($id,$pass){
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $_SESSION['id'] =  $_POST['id'];
+    $_SESSION['start'] = time();
+    $_SESSION['id'] = $_POST['id'];
     $pass = $_POST['pass'];
     $id = $_SESSION['id'];
+    $startTime = date('Y-m-d H:i:s',$_SESSION['start']);
     $errors = validate($id,$pass);
+
     if(!count($errors)){
         $link = dbConnect();
-        $errors = checkUser($link,$id,$pass);
-        mysqli_close($link);
+        $errors = checkUserId($link,$id);
+
         if(!count($errors)){
-            header("Location: index.php");
-            exit();
+            $hashPass = getUserPass($link,$id);
+            if(password_verify($pass,$hashPass['password'])){
+                setStartTime($link,$id,$startTime);
+                mysqli_close($link);
+                header("Location: index.php");
+                exit();
+            }else{
+                $errors[] = 'パスワードに誤りがあります。';
+            }
         }
+        mysqli_close($link);
     }
 }
 session_destroy();
