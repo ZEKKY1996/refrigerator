@@ -1,8 +1,3 @@
-
-<h1 class="h2 text-dark mt-4 mb-4">すてるものを選択</h1>
-<?php if(isset($error)) :?>
-    <p class="text-danger"><?php echo $error;?></p>
-<?php endif;?>
 <table>
     <?php if(count($items)>0) :?>
         <tr>
@@ -20,10 +15,8 @@
             <?php else :?>
                 <tr>
             <?php endif;?>
-                <td class="border text-center pl-2 pr-2">
-                    <form action="dispose.php" method="POST">
+                <td class="border text-center pl-1 pr-1">
                     <input type="checkbox" name="chk[]" value="<?php echo $item['id'];?>">
-
                 </td>
                 <td class="border text-center pl-1 pr-1 col-3">
                 <?php echo escape($item['name']);?>
@@ -47,7 +40,3 @@
     <p class="text-danger pr-4">赤：期限間近</p>
     <p class="text-primary">青：冷凍</p>
 </div>
-<button type="submit" class="btn btn-primary mt-4">すてる</button>
-</form>
-<br>
-<a href="index.php" class="btn btn-primary mt-4">一覧にもどる</a>

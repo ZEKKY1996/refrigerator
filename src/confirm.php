@@ -1,52 +1,7 @@
 <?php
 require_once  __DIR__.'/lib/mysqli.php';
-
-function checkUser($link,$id){
-    $sql = <<<EOT
-    SELECT id
-    FROM users
-    WHERE id = "$id"
-    EOT;
-    $result = mysqli_query($link ,$sql);
-    if(!$result){
-        error_log('Error: fail to check user').PHP_EOL;
-        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
-    }
-    if(mysqli_num_rows($result) === 1){
-        $error = '入力したユーザーIDは使用されています。';
-        return $error;
-    };
-}
-
-function validate($id,$pass,$mail,$passConf){
-    $errors = [];
-
-    if(!strlen($id)){
-        $errors['id'] = 'ユーザーIDを入力してください。'.PHP_EOL;
-    }elseif(!preg_match('/^[a-zA-Z0-9]+$/',$id)){
-        $errors['id'] = 'ユーザーIDは半角英数字で入力してください。'.PHP_EOL;
-    }elseif(strlen($id)>20){
-        $errors['id'] = 'ユーザーIDは20文字以内で入力してください。'.PHP_EOL;
-    }
-
-    if(!strlen($mail)){
-        $errors['mail'] = 'メールアドレスを入力してください。'.PHP_EOL;
-    }elseif(!preg_match('/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/',$mail)){
-        $errors['mail'] = '正しいメールアドレスを入力してください。'.PHP_EOL;
-    }
-
-    if(!strlen($pass)){
-        $errors['pass'] = 'パスワードを入力してください。'.PHP_EOL;
-    }elseif(!preg_match('/^(?=.+\d)(?=.*[A-Za-z])[0-9A-Za-z]{4,12}$/',$pass)){
-        $errors['pass'] = 'パスワードは1つ以上の数字とアルファベットをいれて4字～12字で入力してください。'.PHP_EOL;
-    }
-
-    if($pass != $passConf){
-        $errors['pass_conf'] = '確認用パスワードに誤りがあります。'.PHP_EOL;
-    }
-
-    return $errors;
-}
+require_once  __DIR__.'/class/Users.php';
+require_once  __DIR__.'/class/Validate.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $id =  $_POST['id'];
@@ -54,10 +9,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $pass = $_POST['pass'];
     $passConf = $_POST['pass_conf'];
 
-    $errors = validate($id,$pass,$mail,$passConf);
+    $validateUser = new Validate();
+    $errors = $validateUser->validateUserInfo($id,$pass,$mail,$passConf);
     if(!count($errors)){
         $link = dbConnect();
-        $errors['overlap'] = checkUser($link,$id);
+        $user = new Users($id);
+        $errors['overlap'] = $user->checkOverlapId($link,$id);
         mysqli_close($link);
         if(!$errors['overlap']){
             $content = __DIR__.'/views/confirm.php';

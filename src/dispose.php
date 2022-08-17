@@ -34,5 +34,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 $title = 'すてるものを選択';
 $error = 'すてるものを選択してください。';
-$content = __DIR__.'/views/dispose.php';
+$content = __DIR__.'/views/selectDispose.php';
+$table = __DIR__.'/views/tableCheckBox.php';
 include __DIR__.'/views/layout.php';

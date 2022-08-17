@@ -1,14 +1,13 @@
 <?php
 session_start();
 require_once  __DIR__.'/mysqli.php';
-
 function lostSessionLogout($link,$time){
     $sql = <<<EOT
     UPDATE users
     SET status = "logout",
         sessionTime = 0
     WHERE status = "login"
-    AND sessionTime < $time - 100
+    AND sessionTime < $time - 900
     EOT;
     $result = mysqli_query($link ,$sql);
     if(!$result){
@@ -32,8 +31,6 @@ function timeout($link,$id){
 
 $link = dbConnect();
 $time = time();
-var_dump($time);
-var_dump($_SESSION);
 if (!count($_SESSION)) {
     lostSessionLogout($link,$time);
     mysqli_close($link);
@@ -41,7 +38,7 @@ if (!count($_SESSION)) {
     header("Location: login.php");
 }else{
     $id = $_SESSION['id'];
-    if($time - $_SESSION['sessionTime'] > 100){
+    if($time - $_SESSION['sessionTime'] > 900){
         timeout($link,$id);
         mysqli_close($link);
         unset($_SESSION['id']);
