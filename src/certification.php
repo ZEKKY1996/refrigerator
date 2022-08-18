@@ -16,24 +16,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $link = dbConnect();
         $user = new Users($id);
         $errors = $user->checkExistId($link,$id);
-            if(!count($errors)){
-                $hashPass = $user->getUserPass($link,$id);
-                if(password_verify($pass,$hashPass['password'])){
-                    $errors = $user->checkUserLog($link,$id);
-                    if(!count($errors)){
-                        $_SESSION['sessionTime'] = time();
-                        $sessionTime = $_SESSION['sessionTime'];
-                        $session = new Session();
-                        $session->setSessionTime($link,$id,$sessionTime);
-                        mysqli_close($link);
-                        header("Location: index.php");
-                        exit();
-                    }
-                }else{
-                    $errors[] = 'パスワードに誤りがあります。';
+        if(!count($errors)){
+            $hashPass = $user->getUserPass($link,$id);
+            if(password_verify($pass,$hashPass['password'])){
+                $errors = $user->checkUserLog($link,$id);
+                if(!count($errors)){
+                    $_SESSION['sessionTime'] = time();
+                    $sessionTime = $_SESSION['sessionTime'];
+                    $session = new Session();
+                    $session->setSessionTime($link,$id,$sessionTime);
+                    mysqli_close($link);
+                    header("Location: index.php");
+                    exit();
                 }
+            }else{
+                $errors[] = 'パスワードに誤りがあります。';
             }
-        mysqli_close($link);
+        }
+    mysqli_close($link);
     }
 }
 session_destroy();

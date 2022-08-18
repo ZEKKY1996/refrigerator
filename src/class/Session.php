@@ -17,4 +17,17 @@ class Session{
             echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
         }
     }
+    public function logout($link,$id){
+        $sql = <<<EOT
+        UPDATE users
+        SET status = "logout",
+            sessionTime = 0
+        WHERE id = "$id"
+        EOT;
+        $result = mysqli_query($link ,$sql);
+        if(!$result){
+            error_log('Error: fail to get user pass').PHP_EOL;
+            echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+        }
+    }
 }

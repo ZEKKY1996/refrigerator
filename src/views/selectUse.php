@@ -1,7 +1,7 @@
 
 <h1 class="h2 text-dark mt-4 mb-4">つかうものを選択</h1>
-<?php if(isset($error)) :?>
-    <p class="text-danger"><?php echo $error;?></p>
+<?php if(isset($errors)) :?>
+    <p class="text-danger"><?php echo $errors['volume'];?></p>
 <?php endif;?>
 <form action="inputVolume.php" method="POST">
 

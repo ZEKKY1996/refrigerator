@@ -1,24 +1,12 @@
 <?php
 require_once  __DIR__.'/lib/checkSession.php';
 require_once  __DIR__.'/lib/mysqli.php';
-
-function logout($link,$id){
-    $sql = <<<EOT
-    UPDATE users
-    SET status = "logout",
-        sessionTime = 0
-    WHERE id = "$id"
-    EOT;
-    $result = mysqli_query($link ,$sql);
-    if(!$result){
-        error_log('Error: fail to get user pass').PHP_EOL;
-        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
-    }
-}
+require_once  __DIR__.'/class/Session.php';
 
 $id = $_SESSION['id'];
 $link = dbConnect();
-logout($link,$id);
+$log = new Session();
+$log->logout($link,$id);
 
 unset($_SESSION['id']);
 session_destroy();

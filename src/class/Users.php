@@ -115,17 +115,30 @@ class Users{
         return $errors;
     }
     public function getUserPass($link,$id){
-    $sql = <<<EOT
-    SELECT password
-    FROM users
-    WHERE id = "$id"
-    EOT;
-    $result = mysqli_query($link ,$sql);
-    if(!$result){
-        error_log('Error: fail to get user pass').PHP_EOL;
-        echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+        $sql = <<<EOT
+        SELECT password
+        FROM users
+        WHERE id = "$id"
+        EOT;
+        $result = mysqli_query($link ,$sql);
+        if(!$result){
+            error_log('Error: fail to get user pass').PHP_EOL;
+            echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+        }
+        $hashPass = mysqli_fetch_assoc($result);
+        return $hashPass;
     }
-    $hashPass = mysqli_fetch_assoc($result);
-    return $hashPass;
-}
+    public function resetUserPass($link,$id,$mail,$pass){
+        $sql = <<<EOT
+            UPDATE users
+            SET password = "$pass"
+            WHERE id = "$id"
+            AND mail = "$mail"
+        EOT;
+        $result = mysqli_query($link ,$sql);
+        if(!$result){
+            error_log('Error: fail to register user').PHP_EOL;
+            echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+        }
+    }
 }
