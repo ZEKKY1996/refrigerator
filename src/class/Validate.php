@@ -92,12 +92,9 @@ class Validate{
         return $errors;
     }
     function validateVolume($itemVolume){
-        $errors = [];
-        if(!strlen($itemVolume)){
-            $errors = '数量を入力してください。'.PHP_EOL;
-        }elseif($itemVolume < 0 || is_string($itemVolume)){
+        if($itemVolume <= 0){
             $errors = '数量は小数第1位までの正の数値で入力してください。'.PHP_EOL;
+            return $errors;
         }
-        return $errors;
     }
 }

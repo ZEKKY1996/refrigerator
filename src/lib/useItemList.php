@@ -36,7 +36,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $useItemIds = $_POST['chk'];
         $link = dbConnect();
         $useItems = useItem($link,$id,$useItemIds);
-        $title = '使うものの数量を選択';
 
     }
 }
