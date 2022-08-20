@@ -1,10 +1,10 @@
 <?php
-require_once  __DIR__.'/lib/checkSession.php';
-require_once  __DIR__.'/lib/mysqli.php';
-require_once  __DIR__.'/lib/escape.php';
-require_once  __DIR__.'/lib/useItemList.php';
-require_once  __DIR__.'/class/Refrigerator.php';
-require_once  __DIR__.'/class/Validate.php';
+require_once  __DIR__ . '/lib/checkSession.php';
+require_once  __DIR__ . '/lib/mysqli.php';
+require_once  __DIR__ . '/lib/escape.php';
+require_once  __DIR__ . '/lib/useItemList.php';
+require_once  __DIR__ . '/class/Refrigerator.php';
+require_once  __DIR__ . '/class/Validate.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $updateItemIds = $_POST['id'];
@@ -28,6 +28,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 }
 $title = 'つかう数量を選択';
-$table = __DIR__.'/views/tableInputVolume.php';
-$content = __DIR__.'/views/use.php';
-include __DIR__.'/views/layout.php';
+$table = __DIR__ . '/views/tableInputVolume.php';
+$content = __DIR__ . '/views/use.php';
+include __DIR__ . '/views/layout.php';

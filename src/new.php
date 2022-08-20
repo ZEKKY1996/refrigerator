@@ -1,5 +1,5 @@
 <?php
-require_once  __DIR__.'/lib/checkSession.php';
+require_once  __DIR__ . '/lib/checkSession.php';
 $item = [
     'name' => '',
     'volume' => '',
@@ -10,5 +10,5 @@ $item = [
 $errors = [];
 
 $title = 'いれるものを入力';
-$content = __DIR__.'/views/new.php';
-include __DIR__.'/views/layout.php';
+$content = __DIR__ . '/views/new.php';
+include __DIR__ . '/views/layout.php';
