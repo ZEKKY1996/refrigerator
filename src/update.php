@@ -11,6 +11,7 @@ require_once  __DIR__ . '/class/Validate.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateItemIds = $_POST['id'];
+    $id = $_SESSION['id'];
     $updateItemVolumes = [];
     $validate = new Validate();
     foreach ($_POST['volume'] as $itemVolume) {

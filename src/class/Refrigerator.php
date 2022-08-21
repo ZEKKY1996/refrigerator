@@ -8,7 +8,7 @@ class Refrigerator
     {
     }
 
-    public function insertItem($link, $id, $item)
+    public function insertItem(object $link, string $id, array $item): void
     {
         $sql = <<<EOT
             INSERT INTO $id (
@@ -34,7 +34,7 @@ class Refrigerator
         }
     }
 
-    public function deleteItem($link, $id, $deleteItems)
+    public function deleteItem(object $link, string $id, array $deleteItems): void
     {
         foreach ($deleteItems as $deleteItem) {
             $sql = <<<EOT
@@ -49,7 +49,7 @@ class Refrigerator
         }
     }
 
-    public function freezingItem($link, $id, $freezingItemIds)
+    public function freezingItem(object $link, string $id, array $freezingItemIds): void
     {
         foreach ($freezingItemIds as $freezingItemId) {
             $sql = <<<EOT
@@ -70,7 +70,7 @@ class Refrigerator
         }
     }
 
-    public function updateItem($link, $id, $updateItemIds, $updateItemVolumes)
+    public function updateItem(object $link, string $id, array $updateItemIds, array $updateItemVolumes): void
     {
         for ($i = 0; $i <= count($updateItemIds); $i++) {
             $sql = <<<EOT
@@ -86,7 +86,7 @@ class Refrigerator
         }
         $sql = <<<EOT
                 DELETE FROM $id
-                WHERE volume <= 0
+                WHERE volume < 0.1
             EOT;
             $result = mysqli_query($link, $sql);
         if (!$result) {

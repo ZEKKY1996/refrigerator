@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = $validateUser->validateUserInfo($id, $pass, $mail, $passConf);
     if (!count($errors)) {
         $link = dbConnect();
-        $user = new Users($id);
+        $user = new Users();
         $errors['overlap'] = $user->checkOverlapId($link, $id);
         mysqli_close($link);
         if (!$errors['overlap']) {

@@ -4,11 +4,11 @@ namespace Refrigerator;
 
 class Users
 {
-    public function __construct($id)
+    public function __construct()
     {
     }
 
-    public function checkOverlapId($link, $id)
+    public function checkOverlapId(object $link, string $id)
     {
         $sql = <<<EOT
         SELECT id
@@ -25,7 +25,8 @@ class Users
             return $error;
         }
     }
-    public function checkExistId($link, $id)
+
+    public function checkExistId(object $link, string $id): array
     {
         $errors = [];
         $sql = <<<EOT
@@ -43,7 +44,8 @@ class Users
         }
         return $errors;
     }
-    public function registerUser($link, $id, $mail, $pass)
+
+    public function registerUser(object $link, string $id, string $mail, string $pass): void
     {
         $sql = <<<EOT
             INSERT INTO users (
@@ -66,7 +68,8 @@ class Users
             echo 'Debugging error:' . mysqli_error($link) . PHP_EOL;
         }
     }
-    public function createRefrigeratorTable($link, $id)
+
+    public function createRefrigeratorTable(object $link, string $id): void
     {
         $sql = <<<EOT
             CREATE TABLE $id (
@@ -86,7 +89,7 @@ class Users
         }
     }
 
-    public function checkMailAddress($link, $id, $mail)
+    public function checkMailAddress(object $link, string $id, string $mail): array
     {
         $errors = [];
         $sql = <<<EOT
@@ -105,7 +108,8 @@ class Users
         };
         return $errors;
     }
-    public function checkUserLog($link, $id)
+
+    public function checkUserLog(object $link, string $id): array
     {
         $errors = [];
         $sql = <<<EOT
@@ -124,7 +128,8 @@ class Users
         }
         return $errors;
     }
-    public function getUserPass($link, $id)
+
+    public function getUserPass(object $link, string $id): array
     {
         $sql = <<<EOT
         SELECT password
@@ -139,7 +144,8 @@ class Users
         $hashPass = mysqli_fetch_assoc($result);
         return $hashPass;
     }
-    public function resetUserPass($link, $id, $mail, $pass)
+
+    public function resetUserPass(object $link, string $id, string $mail, string $pass): void
     {
         $sql = <<<EOT
             UPDATE users

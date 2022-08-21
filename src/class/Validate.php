@@ -8,7 +8,7 @@ class Validate
     {
     }
 
-    public function validateUserInfo($id, $pass, $mail, $passConf)
+    public function validateUserInfo(string $id, string $pass, string $mail, string $passConf): array
     {
         $errors = [];
 
@@ -39,7 +39,7 @@ class Validate
         return $errors;
     }
 
-    public function validateLoginUserInfo($id, $pass)
+    public function validateLoginUserInfo(string $id, string $pass): array
     {
         $errors = [];
 
@@ -61,7 +61,7 @@ class Validate
         return $errors;
     }
 
-    public function validateItemInfo($item)
+    public function validateItemInfo(array $item): array
     {
         $errors = [];
         if (!strlen($item['name'])) {
@@ -80,20 +80,20 @@ class Validate
         } elseif (strlen($item['unit']) > 10) {
             $errors['unit'] = '単位は10文字以内で入力してください。' . PHP_EOL;
         }
-        $parchase_date = explode('-', $item['parchase_date']);
+        $parchaseDate = explode('-', $item['parchase_date']);
         if (!strlen($item['parchase_date'])) {
             $errors['parchase_date'] = '購入日を入力してください。' . PHP_EOL;
-        } elseif (count($parchase_date) !== 3) {
+        } elseif (count($parchaseDate) !== 3) {
             $errors['parchase_date'] = '購入日を正しい形式で入力してください。' . PHP_EOL;
-        } elseif (!checkdate($parchase_date[1], $parchase_date[2], $parchase_date[0])) {
+        } elseif (!checkdate($parchaseDate[1], $parchaseDate[2], $parchaseDate[0])) {
             $errors['parchase_date'] = '購入日を正しい日付で入力してください。' . PHP_EOL;
         }
-        $limit_date = explode('-', $item['limit_date']);
+        $limitDate = explode('-', $item['limit_date']);
         if (!strlen($item['limit_date'])) {
             $errors['limit_date'] = '期限日を入力してください。' . PHP_EOL;
-        } elseif (count($parchase_date) !== 3) {
+        } elseif (count($parchaseDate) !== 3) {
             $errors['parchase_date'] = '期限日を正しい形式で入力してください。' . PHP_EOL;
-        } elseif (!checkdate($limit_date[1], $limit_date[2], $limit_date[0])) {
+        } elseif (!checkdate($limitDate[1], $limitDate[2], $limitDate[0])) {
             $errors['limit_date'] = '期限日を正しい日付で入力してください。' . PHP_EOL;
         } elseif ($item['limit_date'] < $item['parchase_date']) {
             $errors['limit_date'] = '期限日は購入日以降の日付としてください。' . PHP_EOL;
@@ -101,7 +101,7 @@ class Validate
         return $errors;
     }
 
-    public function validateVolume($itemVolume)
+    public function validateVolume(float $itemVolume)
     {
         if ($itemVolume <= 0) {
             $errors = '数量は小数第1位までの正の数値で入力してください。' . PHP_EOL;

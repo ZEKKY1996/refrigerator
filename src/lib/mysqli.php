@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-function dbConnect()
+function dbConnect(): object
 {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
     $dotenv->load();

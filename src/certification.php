@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!count($errors)) {
         $link = dbConnect();
-        $user = new Users($id);
+        $user = new Users();
         $errors = $user->checkExistId($link, $id);
         if (!count($errors)) {
             $hashPass = $user->getUserPass($link, $id);

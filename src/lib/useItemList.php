@@ -2,8 +2,9 @@
 
 $id = $_SESSION['id'];
 
-function useItem($link, $id, $useItemIds)
+function useItem(object $link, string $id, array $useItemIds): array
 {
+    $useItems = [];
     foreach ($useItemIds as $useItemId) {
         $sql = <<<EOT
             SELECT

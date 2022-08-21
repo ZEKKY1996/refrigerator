@@ -1,6 +1,6 @@
 <?php
 
-function listItems($link, $id)
+function listItems(object $link, string $id): array
 {
     $items = [];
     $sql = <<<EOT

@@ -2,7 +2,7 @@
 
 session_start();
 require_once  __DIR__ . '/mysqli.php';
-function lostSessionLogout($link, $time)
+function lostSessionLogout(object $link, int $time): void
 {
     $sql = <<<EOT
     UPDATE users
@@ -18,7 +18,7 @@ function lostSessionLogout($link, $time)
     }
 }
 
-function timeout($link, $id)
+function timeout(object $link, string $id): void
 {
     $sql = <<<EOT
     UPDATE users

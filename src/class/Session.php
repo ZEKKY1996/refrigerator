@@ -8,7 +8,7 @@ class Session
     {
     }
 
-    public function setSessionTime($link, $id, $sessionTime)
+    public function setSessionTime(object $link, string $id, int $sessionTime): void
     {
         $sql = <<<EOT
         UPDATE users
@@ -23,7 +23,7 @@ class Session
         }
     }
 
-    public function logout($link, $id)
+    public function logout(object $link, string $id): void
     {
         $sql = <<<EOT
         UPDATE users

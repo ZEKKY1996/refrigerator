@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
         $link = dbConnect();
-        $user = new Users($id);
+        $user = new Users();
         $user->registerUser($link, $id, $mail, $pass);
         $user->createRefrigeratorTable($link, $id);
         mysqli_close($link);

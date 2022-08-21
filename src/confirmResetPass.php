@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = $validateUser->validateUserInfo($id, $pass, $mail, $passConf);
     if (!count($errors)) {
         $link = dbConnect();
-        $user = new Users($id);
+        $user = new Users();
         $errors = $user->checkMailAddress($link, $id, $mail);
         mysqli_close($link);
         if (!count($errors)) {
