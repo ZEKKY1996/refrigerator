@@ -5,11 +5,11 @@
         <input type="hidden" id="pass" name="pass" value="<?php echo $pass;?>">
         <p>下記のユーザー情報を再設定します</p>
         <?php
-        echo 'ユーザーID:  '.$id;?><br>
+        echo 'ユーザーID:  ' . $id;?><br>
         <?php
-        echo 'メールアドレス:  '.$mail;?><br>
+        echo 'メールアドレス:  ' . $mail;?><br>
         <?php
-        echo 'パスワード:****'.PHP_EOL;
+        echo 'パスワード:****' . PHP_EOL;
         ?><br><br>
             <div>
                <button type="submit" class="btn btn-primary">登録</button>

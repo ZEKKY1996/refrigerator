@@ -1,4 +1,7 @@
 <?php
+
+namespace Refrigerator;
+
 $id = "";
 $mail = "";
 $errors = [];

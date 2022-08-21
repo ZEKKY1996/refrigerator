@@ -1,5 +1,7 @@
 <?php
-function listItems($link,$id){
+
+function listItems($link, $id)
+{
     $items = [];
     $sql = <<<EOT
         SELECT
@@ -10,10 +12,10 @@ function listItems($link,$id){
             freezing ASC,
             limit_date ASC
     EOT;
-    $results = mysqli_query($link,$sql);
+    $results = mysqli_query($link, $sql);
 
-    while($item = mysqli_fetch_assoc($results)){
-        $items[]= $item;
+    while ($item = mysqli_fetch_assoc($results)) {
+        $items[] = $item;
     }
     mysqli_free_result($results);
 
@@ -21,4 +23,4 @@ function listItems($link,$id){
 }
 $id = $_SESSION['id'];
 $link = dbConnect();
-$items = listItems($link,$id);
+$items = listItems($link, $id);

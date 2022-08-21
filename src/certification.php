@@ -1,5 +1,7 @@
 <?php
 
+namespace Refrigerator;
+
 session_start();
 require_once  __DIR__ . '/lib/mysqli.php';
 require_once  __DIR__ . '/class/Users.php';

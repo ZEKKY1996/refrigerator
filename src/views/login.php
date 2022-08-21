@@ -1,8 +1,8 @@
 <h1>ユーザー情報の入力</h1>
     <form action="certification.php" method="POST">
-    <?php if(count($errors)) : ?>
+    <?php if (count($errors)) : ?>
         <ul class="text-danger">
-            <?php foreach($errors as $error) : ?>
+            <?php foreach ($errors as $error) : ?>
                 <li><?php echo $error ?></li>
             <?php endforeach; ?>
         </ul>

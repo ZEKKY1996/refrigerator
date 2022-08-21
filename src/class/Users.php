@@ -1,5 +1,7 @@
 <?php
 
+namespace Refrigerator;
+
 class Users
 {
     public function __construct($id)

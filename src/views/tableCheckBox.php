@@ -1,5 +1,5 @@
 <table>
-    <?php if(count($items)>0) :?>
+    <?php if (count($items) > 0) :?>
         <tr>
             <th class="border text-center"></th>
             <th class="border text-center">品物</th>
@@ -8,9 +8,9 @@
             <th class="border text-center">期限日</th>
         </tr>
         <?php foreach ($items as $item) :?>
-            <?php if($item['freezing'] === 'on'):?>
+            <?php if ($item['freezing'] === 'on') :?>
                 <tr class="text-primary">
-            <?php elseif(strtotime($item['limit_date'])<strtotime(date("Y-m-d"))+5*60*60*24):?>
+            <?php elseif (strtotime($item['limit_date']) < strtotime(date("Y-m-d")) + 5 * 60 * 60 * 24) :?>
                 <tr class="text-danger">
             <?php else :?>
                 <tr>
@@ -22,7 +22,7 @@
                 <?php echo escape($item['name']);?>
                 </td>
                 <td class="border text-right pl-1 pr-1">
-                <?php echo escape($item['volume']).escape($item['unit']);?>
+                <?php echo escape($item['volume']) . escape($item['unit']);?>
                 </td>
                 <td class="border text-center pl-1 pr-1">
                 <?php echo escape($item['parchase_date']);?>
@@ -32,7 +32,7 @@
                 </td>
             </tr>
         <?php endforeach;?>
-    <?php else:?>
+    <?php else :?>
         <h4>冷蔵庫がからっぽです</h4>
     <?php endif;?>
 </table>

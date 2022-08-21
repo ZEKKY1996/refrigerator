@@ -1,33 +1,40 @@
 <?php
 
-class Session{
-    public function __construct(){
+namespace Refrigerator;
 
+class Session
+{
+    public function __construct()
+    {
     }
-    public function setSessionTime($link,$id,$sessionTime){
+
+    public function setSessionTime($link, $id, $sessionTime)
+    {
         $sql = <<<EOT
         UPDATE users
         SET status = "login",
             sessionTime = "$sessionTime"
         WHERE id = "$id"
         EOT;
-        $result = mysqli_query($link ,$sql);
-        if(!$result){
-            error_log('Error: fail to get user pass').PHP_EOL;
-            echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+        $result = mysqli_query($link, $sql);
+        if (!$result) {
+            error_log('Error: fail to get user pass') . PHP_EOL;
+            echo 'Debugging error:' . mysqli_error($link) . PHP_EOL;
         }
     }
-    public function logout($link,$id){
+
+    public function logout($link, $id)
+    {
         $sql = <<<EOT
         UPDATE users
         SET status = "logout",
             sessionTime = 0
         WHERE id = "$id"
         EOT;
-        $result = mysqli_query($link ,$sql);
-        if(!$result){
-            error_log('Error: fail to get user pass').PHP_EOL;
-            echo 'Debugging error:'.mysqli_error($link).PHP_EOL;
+        $result = mysqli_query($link, $sql);
+        if (!$result) {
+            error_log('Error: fail to get user pass') . PHP_EOL;
+            echo 'Debugging error:' . mysqli_error($link) . PHP_EOL;
         }
     }
 }

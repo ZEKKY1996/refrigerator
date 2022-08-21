@@ -1,4 +1,7 @@
 <?php
+
+namespace Refrigerator;
+
 require_once  __DIR__ . '/lib/checkSession.php';
 $item = [
     'name' => '',

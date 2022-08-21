@@ -1,4 +1,7 @@
 <?php
+
+namespace Refrigerator;
+
 require_once  __DIR__ . '/lib/checkSession.php';
 require_once  __DIR__ . '/lib/mysqli.php';
 require_once  __DIR__ . '/lib/escape.php';
@@ -6,23 +9,23 @@ require_once  __DIR__ . '/lib/useItemList.php';
 require_once  __DIR__ . '/class/Refrigerator.php';
 require_once  __DIR__ . '/class/Validate.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateItemIds = $_POST['id'];
     $updateItemVolumes = [];
     $validate = new Validate();
-    foreach($_POST['volume'] as $itemVolume){
+    foreach ($_POST['volume'] as $itemVolume) {
         $error = $validate->validateVolume((float)$itemVolume);
-        if(isset($error)){
+        if (isset($error)) {
             $errors[] = $error;
         }
     }
-    if(!isset($errors)){
-        foreach($_POST['volume'] as $itemVolume){
-            $updateItemVolumes[] = floor($itemVolume * 10)/10;
+    if (!isset($errors)) {
+        foreach ($_POST['volume'] as $itemVolume) {
+            $updateItemVolumes[] = floor($itemVolume * 10) / 10;
         }
         $link = dbConnect();
         $refrigerator = new Refrigerator();
-        $refrigerator->updateItem($link,$id,$updateItemIds,$updateItemVolumes);
+        $refrigerator->updateItem($link, $id, $updateItemIds, $updateItemVolumes);
         mysqli_close($link);
         header("Location: index.php");
     }

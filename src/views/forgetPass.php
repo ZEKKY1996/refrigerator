@@ -1,7 +1,7 @@
 <h1>パスワードの再設定</h1>
-    <?php if(count($errors)) : ?>
+    <?php if (count($errors)) : ?>
     <ul class="text-danger">
-        <?php foreach($errors as $error) : ?>
+        <?php foreach ($errors as $error) : ?>
             <li><?php echo $error ?></li>
         <?php endforeach; ?>
     </ul>

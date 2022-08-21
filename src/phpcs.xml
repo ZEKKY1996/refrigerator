@@ -5,5 +5,8 @@
     <exclude-pattern>./vendor/*</exclude-pattern>
     <arg name="colors"/>
     <arg value="s"/>
-    <rule ref="PSR12"/>
+    <rule ref="PSR12">
+        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+    </rule>
 </ruleset>

@@ -1,5 +1,9 @@
 <?php
 
-const price = 100;
+function sayHello(sarg_string)
+{
+    $s = 'world';
+    echo "Hello" . $arg_string . PHP_EOL;
+}
 
-if($v === 1) echo 'Hello';
+sayHello();

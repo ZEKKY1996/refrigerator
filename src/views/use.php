@@ -1,6 +1,6 @@
 <h1 class="h2 text-dark mt-4 mb-4">つかう数量を入力</h1>
-<?php if(isset($errors)) :?>
-    <?php foreach($errors as $error):?>
+<?php if (isset($errors)) :?>
+    <?php foreach ($errors as $error) :?>
     <p class="text-danger"><?php echo $error;?></p>
     <?php endforeach;?>
 <?php endif;?>

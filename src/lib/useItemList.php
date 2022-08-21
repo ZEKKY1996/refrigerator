@@ -2,8 +2,9 @@
 
 $id = $_SESSION['id'];
 
-function useItem($link,$id,$useItemIds){
-    foreach($useItemIds as $useItemId){
+function useItem($link, $id, $useItemIds)
+{
+    foreach ($useItemIds as $useItemId) {
         $sql = <<<EOT
             SELECT
                 id,
@@ -19,11 +20,10 @@ function useItem($link,$id,$useItemIds){
             ORDER BY
                 limit_date ASC
         EOT;
-        $results = mysqli_query($link,$sql);
+        $results = mysqli_query($link, $sql);
 
-        while($useItem = mysqli_fetch_assoc($results)){
-            $useItems[]= $useItem;
-
+        while ($useItem = mysqli_fetch_assoc($results)) {
+            $useItems[] = $useItem;
         }
         mysqli_free_result($results);
     }
@@ -31,11 +31,10 @@ function useItem($link,$id,$useItemIds){
 }
 
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(isset($_POST['chk'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['chk'])) {
         $useItemIds = $_POST['chk'];
         $link = dbConnect();
-        $useItems = useItem($link,$id,$useItemIds);
-
+        $useItems = useItem($link, $id, $useItemIds);
     }
 }

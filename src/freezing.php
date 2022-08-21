@@ -1,4 +1,7 @@
 <?php
+
+namespace Refrigerator;
+
 require_once  __DIR__ . '/lib/checkSession.php';
 require_once  __DIR__ . '/lib/mysqli.php';
 require_once  __DIR__ . '/lib/escape.php';
@@ -7,14 +10,14 @@ require_once  __DIR__ . '/class/Refrigerator.php';
 
 $id = $_SESSION['id'];
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if(isset($_POST['chk'])){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['chk'])) {
         $freezingItemIds = $_POST['chk'];
 
-        if(count($freezingItemIds)){
+        if (count($freezingItemIds)) {
             $link = dbConnect();
             $refrigerator = new Refrigerator();
-            $refrigerator->freezingItem($link,$id,$freezingItemIds);
+            $refrigerator->freezingItem($link, $id, $freezingItemIds);
             mysqli_close($link);
             header("Location: index.php");
         }
