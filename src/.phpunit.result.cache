@@ -1,1 +1,1 @@
-{"version":1,"defects":{"ValidateTest::testValidate":4},"times":{"ValidateTest::testValidate":0.002}}
+{"version":1,"defects":{"ValidateTest::testValidate":4,"ValidateTest::testValidateUserInfo":4,"Refrigerator\\ValidateTest::testValidateUserInfo":4},"times":{"ValidateTest::testValidate":0.002,"ValidateTest::testValidateUserInfo":0.002,"Refrigerator\\ValidateTest::testValidateUserInfo":0.002}}
