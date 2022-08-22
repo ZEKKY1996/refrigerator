@@ -1,6 +1,7 @@
 {
     "name": "root/html",
     "require": {
+        "silex/silex": "~1.1",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
@@ -13,9 +14,6 @@
         "phpcs": "./vendor/bin/phpcs --standard=phpcs.xml",
         "phpmd": "./vendor/bin/phpmd . text phpmd.xml --suffixes php --exclude vendor",
         "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
-        "phpunit": "./vendor/bin/phpunit",
-        "compile": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ]
+        "phpunit": "./vendor/bin/phpunit"
     }
 }
