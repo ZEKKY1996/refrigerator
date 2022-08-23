@@ -16,7 +16,7 @@
         "phpstan": "./vendor/bin/phpstan analyse -c phpstan.neon",
         "phpunit": "./vendor/bin/phpunit",
         "compile": [
-            "@php -r \"file_exists('.env') || copy('.env.heroku', '.env');\""
+            "@php -r \"file_exists('src/.env') || copy('.env.heroku', '.env');\""
         ]
     }
 }
