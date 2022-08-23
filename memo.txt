@@ -1,8 +1,0 @@
-SELECT id FROM refrigerators WHERE volume = '0.5' AND  parchase_date = '2022-08-10' AND limit_date = '2022-08-17';
-CREATE TABLE users (
-            id VARCHAR(20) NOT NULL PRIMARY KEY,
-            mail VARCHAR(255) NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            status VARCHAR(10) NOT NULL,
-            startTime INTEGER
-        ) DEFAULT CHARACTER SET=utf8mb4;
