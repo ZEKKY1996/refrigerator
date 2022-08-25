@@ -3,10 +3,10 @@
 namespace Refrigerator;
 
 session_start();
-require_once  __DIR__ . '/lib/mysqli.php';
-require_once  __DIR__ . '/class/Users.php';
-require_once  __DIR__ . '/class/Session.php';
-require_once  __DIR__ . '/class/Validate.php';
+require_once __DIR__ . '/lib/mysqli.php';
+require_once __DIR__ . '/class/Users.php';
+require_once __DIR__ . '/class/Session.php';
+require_once __DIR__ . '/class/Validate.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['id'] = $_POST['id'];
@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors = $user->checkExistId($link, $id);
         if (!count($errors)) {
             $hashPass = $user->getUserPass($link, $id);
+            var_dump($pass);
+            var_dump(password_verify($pass, $hashPass['password']));
             if (password_verify($pass, $hashPass['password'])) {
                 $errors = $user->checkUserLog($link, $id);
                 if (!count($errors)) {
@@ -32,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header("Location: index.php");
                     exit();
                 }
-            } else {
+            }
+            else {
                 $errors[] = 'パスワードに誤りがあります。';
             }
         }
