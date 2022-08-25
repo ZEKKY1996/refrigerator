@@ -2,16 +2,17 @@
 
 namespace Refrigerator;
 
-require_once  __DIR__ . '/lib/checkSession.php';
-require_once  __DIR__ . '/lib/mysqli.php';
-require_once  __DIR__ . '/lib/escape.php';
-require_once  __DIR__ . '/lib/useItemList.php';
+require_once __DIR__ . '/lib/checkSession.php';
+require_once __DIR__ . '/lib/mysqli.php';
+require_once __DIR__ . '/lib/escape.php';
+require_once __DIR__ . '/lib/useItemList.php';
 
 
-if (!count($_POST['chk'])) {
+if (!isset($_POST['chk'])) {
     header("Location: selectUse.php");
-} else {
-    require_once  __DIR__ . '/lib/useItemList.php';
+}
+else {
+    require_once __DIR__ . '/lib/useItemList.php';
     $errors = [];
     $title = 'つかう数量を入力';
     $table = __DIR__ . '/views/tableInputVolume.php';
