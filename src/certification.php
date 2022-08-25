@@ -21,8 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors = $user->checkExistId($link, $id);
         if (!count($errors)) {
             $hashPass = $user->getUserPass($link, $id);
-            var_dump($pass);
-            var_dump(password_verify($pass, $hashPass['password']));
             if (password_verify($pass, $hashPass['password'])) {
                 $errors = $user->checkUserLog($link, $id);
                 if (!count($errors)) {
