@@ -1,0 +1,7 @@
+CREATE TABLE users (
+    id VARCHAR(20) NOT NULL PRIMARY KEY,
+    mail VARCHAR(255) NOT NULL,
+    password VARCHAR(12) NOT NULL,
+    status VARCHAR(10) NOT NULL,
+    sessionTime INTEGER(11)
+) DEFAULT CHARACTER SET=utf8mb4;
