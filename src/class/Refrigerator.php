@@ -72,7 +72,7 @@ class Refrigerator
 
     public function updateItem(object $link, string $id, array $updateItemIds, array $updateItemVolumes): void
     {
-        for ($i = 0; $i <= count($updateItemIds); $i++) {
+        for ($i = 0; $i < count($updateItemIds); $i++) {
             $sql = <<<EOT
                 UPDATE $id
                 SET volume = volume - $updateItemVolumes[$i]
